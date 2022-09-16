@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,6 +24,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'create' %}">Create Listings</a>
             </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item" >
+                <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>   <span>{{ watchlistings.count }}</span>
+            </li>
+            {% endif %}
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Log Out</a>

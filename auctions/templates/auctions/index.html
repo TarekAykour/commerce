@@ -8,13 +8,14 @@
     <h2>Active Listings</h2>
 <ul class="listings">
     {% for listing in listings %}
-        <li>
-            <div class="listing">
+        <li class="listing">
+            <a href="/{{listing.id}}">
+            <div class="listing-info">
                 <img src="{{MEDIA_URL}}{{listing.image}}" alt="" width="200px">
                 <h5>{{listing.title}}</h5>
                 <h6><span>Price:</span>{{listing.price}}</h6>
-               
             </div>
+            </a>
         </li>
     {% endfor %}
 </ul>

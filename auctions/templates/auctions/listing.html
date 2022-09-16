@@ -1,0 +1,60 @@
+{% extends "auctions/layout.html" %}
+
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+    <h1> Lising: {{listing.title}}</h1>
+    {% if user.is_authenticated %}
+        {% if listing in watchers %}
+            <form action="{% url 'deletewatchlist' id=listing.id %}" method="post">
+                {% csrf_token %}
+                 <input type="submit" value="Remove From watchlist" class="btn btn-danger" name="watchlistBtn">
+             </form>
+        {% else %}
+            <form action="{% url 'addwatchlist' id=listing.id %}" method="post">
+               {% csrf_token %}
+                <input type="submit" value="Add to Watchlist" class="btn btn-primary" name="watchlistBtn">
+            </form>
+        {% endif %}
+    {% else %}
+            <div>nothing</div>
+    {% endif %}
+    <img src="{{MEDIA_URL}}{{listing.image}}" alt="" width="200px">
+    <p>{{listing.description}}</p>
+    <h3>${{listing.price}}</h3>
+    <span class="bids">({{bids.count}}) bid so far</span>
+    {% if user.is_authenticated %}
+    {{error}}
+    <form action="{% url 'addbid' id=listing.id %} " method="post">
+        {% csrf_token %}
+        {{bid_form | crispy}}
+        <input class="btn btn-primary" type="submit" value="bid" name="bid">
+    </form>
+    {% endif %}
+    <div class="details">
+        <ul>
+            <li>Listed by: {{listing.user}}</li>
+            <li>Category: {{listing.category}}</li>
+        </ul>
+    </div>
+    {% if user.is_authenticated %}
+    <form action="{% url 'addcomment' id=listing.id %}" method="post">
+        {% csrf_token %}
+        {{comment_form | crispy }}
+        <input class="btn btn-primary" type="submit" value="submit" name="commentbtn">
+    </form>
+    {% endif %}
+   
+    <h2>Comments:</h2>
+    <div class="underline"></div>
+    <div class="comments">
+        {% for comment in comments %}
+            <div class="comment">
+                <h4>{{comment.user}}</h4>
+                <p>{{comment.comment}}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

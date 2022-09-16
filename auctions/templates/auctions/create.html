@@ -7,9 +7,9 @@ Create
 {% endblock%}
 
 {% block body %}
-<form action="{% url 'create' %}" method="post">
+<form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-   {{form | crispy}}
-   <input type="submit" value="Submit">
+    {{form | crispy }}
+   <input type="submit" value="Submit" class="btn btn-primary">
 </form>
 {% endblock %}

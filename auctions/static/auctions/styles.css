@@ -1,10 +1,28 @@
 body {
     padding: 10px;
-    color: red;
+   
+   
 }
 
 
 /* index page  */
-
+ul a {
+    padding: 5px;
+    color: black;
+}
 
 /* end index page */
+
+/* listing page */
+
+/* listing*/
+
+/* bids */
+
+/* comments */
+.underline {
+    max-width: 500px;
+    height: 2px;
+    background:#333;
+}
+
