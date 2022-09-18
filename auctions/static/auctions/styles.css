@@ -1,28 +1,127 @@
 body {
     padding: 10px;
-   
-   
+    background: #333;
+    color: white;
 }
 
 
 /* index page  */
-ul a {
+.watchers{
+    background: #333;
+    width: 10%;
+    height: 15%;
     padding: 5px;
-    color: black;
+    border-radius: 5px;
+    color: white;
+    position: relative;
+    bottom: 75%;
+    left: 85%;
+}
+ul a {
+    color: white;
+}
+ul  {
+    list-style: none;
+    
+}
+.listings {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+}
+.listing {
+    width: 100%;
+    border-bottom: solid 1px rgb(192, 192, 192);
+    margin-bottom: 25px;
+}
+
+.listing-info {
+    display: grid;
+    grid-template-columns: .5fr 1fr;
+}
+.info-text {
+    color: white;
+}
+
+.info-text h5 {
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.info-text h6 {
+    font-size: 24px;
+}
+.info-text span {
+    font-weight: 600;
+}
+
+.listing-info img {
+    width: 25%;
 }
 
 /* end index page */
 
 /* listing page */
+.listing-page-active {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: .2fr .2fr 1fr .5fr .5fr .5fr 1fr;
+}
+
+.listing-page-inactive {
+    color: red;
+}
+
+
+
+.info {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: .5fr .2fr .2fr;
+}
+
 
 /* listing*/
+.listing-btns {
+    display: grid;
+    grid-gap: 5px;
+    width: 10%;
+    grid-template-columns: .5fr .5fr .5fr;
+}
 
+.listing-form {
+    max-width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-form input {
+    max-height: 50px;
+    
+}
+
+.details{
+    text-align: left;
+    position: relative;
+    margin: 25px;
+    right: 2.5%;
+
+}
 /* bids */
 
 /* comments */
 .underline {
     max-width: 500px;
-    height: 2px;
-    background:#333;
+    height: 1px;
+    background:grey;
+}
+
+.comment {
+    margin-top: 25px;
+    padding: 10px;
+    width: 100%;
+    border-bottom:solid  1px rgb(201, 201, 201);
+    max-width: 25%;
 }
 

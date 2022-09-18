@@ -3,14 +3,17 @@
 {% block body %}
 
 <h1>watchlist</h1>
-{% for listing in listings %}
-<a href="{% url 'listing' id=listing.id %}">
-    <p>{{listing.title}}</p>
-    <form action="{% url 'deletewatchlist' id=listing.id %}" method="post">
-        {% csrf_token %}
-        <input class="btn btn-danger" type="submit" value="delete" name="delete">
-    </form>
-</a>
-{% endfor %}
-
+{% if listings.count == 0 %}
+    <span>add stuff <a href="/">here</a></span>
+{% else %}
+    {% for listing in listings %}
+    <a href="{% url 'listing' id=listing.id %}">
+        <p>{{listing.title}}</p>
+        <form action="{% url 'deletewatchlist' id=listing.id %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="delete" name="delete">
+        </form>
+    </a>
+    {% endfor %}
+{% endif %}
 {% endblock %}

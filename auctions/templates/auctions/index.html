@@ -9,11 +9,18 @@
 <ul class="listings">
     {% for listing in listings %}
         <li class="listing">
+            {% if not listing.is_active %}
+                <button disabled class="btn btn-danger">Closed</button>
+            {% else %}
+            
+            {% endif %}
             <a href="/{{listing.id}}">
             <div class="listing-info">
                 <img src="{{MEDIA_URL}}{{listing.image}}" alt="" width="200px">
-                <h5>{{listing.title}}</h5>
-                <h6><span>Price:</span>{{listing.price}}</h6>
+                <div class="info-text">
+                    <h5>{{listing.title}}</h5>
+                    <h6><span>Price:</span> ${{listing.price}}</h6>
+                </div>
             </div>
             </a>
         </li>

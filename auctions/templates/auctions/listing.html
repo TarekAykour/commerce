@@ -4,7 +4,13 @@
 
 
 {% block body %}
-    <h1> Lising: {{listing.title}}</h1>
+<div class="listing-page-active{% if not listing.is_active %}isting-page-inactive{% endif %} ">
+   {% if  not listing.is_active  %}
+        <h1> Listing: {{listing.title}} <span style="color:red;">[CLOSED]</span></h1> <span>winner:{{winner}}</span>
+   {% else %}
+        <h1> Listing: {{listing.title}}</h1>
+   {% endif %}
+    <div class="listing-btns">
     {% if user.is_authenticated %}
         {% if listing in watchers %}
             <form action="{% url 'deletewatchlist' id=listing.id %}" method="post">
@@ -17,44 +23,88 @@
                 <input type="submit" value="Add to Watchlist" class="btn btn-primary" name="watchlistBtn">
             </form>
         {% endif %}
+        {% if request.user == listing.user %}
+            {% if listing.is_active == True %}
+                <form action="{% url 'closeauction' id=listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Close Auction" class="btn btn-danger" name="closeAuction">
+                </form> 
+            {% else %}
+                <form action="{% url 'openauction' id=listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Open Auction" class="btn btn-success" name="openauction">
+                </form>
+
+                <form action="{% url 'deleteauction' id=listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="delete Auction" class="btn btn-danger" name="deleteauction">
+                </form>
+            {% endif %}
+        {% else %}
+
+
+        {% endif %}
     {% else %}
-            <div>nothing</div>
+            
     {% endif %}
-    <img src="{{MEDIA_URL}}{{listing.image}}" alt="" width="200px">
-    <p>{{listing.description}}</p>
-    <h3>${{listing.price}}</h3>
-    <span class="bids">({{bids.count}}) bid so far</span>
-    {% if user.is_authenticated %}
-    {{error}}
-    <form action="{% url 'addbid' id=listing.id %} " method="post">
-        {% csrf_token %}
-        {{bid_form | crispy}}
-        <input class="btn btn-primary" type="submit" value="bid" name="bid">
-    </form>
+    </div>
+    <div class="info">
+        <img src="{{MEDIA_URL}}{{listing.image}}" alt="" width="200px">
+        <p>{{listing.description}}</p>
+        <h3>Price: ${{listing.price}}</h3>
+    </div>
+    <div class="bids">
+    <span class="bids">({{bids.count}}) bids so far</span>
+        {% if user.is_authenticated %}
+            {% if updated %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+            {% else %}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+        {% if listing.is_active %}
+        <form class="listing-form" action="{% url 'addbid' id=listing.id %} " method="post">
+                {% csrf_token %}  
+                {{bid_form | crispy}}
+                <input class="btn btn-primary" type="submit" value="bid" name="bid">
+        </form>
+        {% else %}
+        {% endif %}
     {% endif %}
+    </div>
+
     <div class="details">
         <ul>
             <li>Listed by: {{listing.user}}</li>
             <li>Category: {{listing.category}}</li>
         </ul>
     </div>
+
     {% if user.is_authenticated %}
-    <form action="{% url 'addcomment' id=listing.id %}" method="post">
-        {% csrf_token %}
-        {{comment_form | crispy }}
-        <input class="btn btn-primary" type="submit" value="submit" name="commentbtn">
-    </form>
+        {% if listing.is_active %}
+            <form class="listing-form" action="{% url 'addcomment' id=listing.id %}" method="post">
+                {% csrf_token %}
+                {{comment_form | crispy }}
+                <input class="btn btn-primary" type="submit" value="submit" name="commentbtn">
+            </form>
+        {% else %}
+        {% endif %}
     {% endif %}
    
+    <div class="comment-section">
     <h2>Comments:</h2>
-    <div class="underline"></div>
-    <div class="comments">
-        {% for comment in comments %}
-            <div class="comment">
-                <h4>{{comment.user}}</h4>
-                <p>{{comment.comment}}</p>
-            </div>
-        {% endfor %}
+        <div class="underline"></div>
+        <div class="comments">
+            {% for comment in comments %}
+                <div class="comment">
+                    <h4>{{comment.user}} <span style="color:grey; font-size: 16px;">{{comment.date}}</span></h4>
+                    <p>{{comment.comment}}</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-
+</div>
 {% endblock %}

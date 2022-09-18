@@ -4,10 +4,10 @@ from django.forms import ModelForm
 from django import forms
 
 class Create(ModelForm):
-   class Meta:
+   class Meta:    
         model = Listing
         fields = ['title', 'description', 'image', 'price', 'category']
-      
+
 
 
    
@@ -21,3 +21,7 @@ class AddBid(ModelForm):
        class Meta:
              model = Bid
              fields = ['amount']
+
+
+
+
