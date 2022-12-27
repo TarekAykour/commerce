@@ -90,17 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
-    # 'default': {
-    #    'ENGINE': 'sql_server.pyodbc',
-    #     'NAME': 'Commerce',
-    #     'USER': env('username_db'),
-    #     'PASSWORD': env('password_db'),
-    #     'HOST': 'web-dev-tarek.database.windows.net',
-    #     'OPTIONS': {
-    #         'driver': 'ODBC Driver 17 for SQL Server',
-            
-    #     }
-    # }
+    
 }
 
 AUTH_USER_MODEL = 'auctions.User'
