@@ -16,9 +16,12 @@ from django.db.models import Max
 
 def index(request):
     listings = Listing.objects.all()
-    return render(request, "auctions/index.html", {
-        "listings": listings,
-    })
+    if request.method == "POST":
+        pass
+    else:
+        return render(request, "auctions/index.html", {
+            "listings": listings,
+        })
 
 
 def login_view(request):

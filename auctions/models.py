@@ -26,7 +26,7 @@ class Listing(models.Model):
     price = models.FloatField()
     category = models.ForeignKey(Category,on_delete=models.CASCADE,default='',blank=True, null=True)
     # a listing can have multiple watchers and a watcher can have multiple listings
-    watchers = models.ManyToManyField(User,blank=True,null=True,related_name="listings")
+    watchers = models.ManyToManyField(User,blank=True,related_name="listings",default=None)
     is_active = models.BooleanField(default=True)
     
     def __str__(self):
