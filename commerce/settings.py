@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +28,10 @@ SECRET_KEY = '6ps8j!crjgrxt34cqbqn7x&b3y%(fny8k8nh21+qa)%ws3fh!q'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+env = environ.Env()
+environ.Env.read_env()
 
 
 # Application definition
@@ -56,7 +62,9 @@ ROOT_URLCONF = 'commerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,10 +85,22 @@ WSGI_APPLICATION = 'commerce.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+
+     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
+    # 'default': {
+    #    'ENGINE': 'sql_server.pyodbc',
+    #     'NAME': 'Commerce',
+    #     'USER': env('username_db'),
+    #     'PASSWORD': env('password_db'),
+    #     'HOST': 'web-dev-tarek.database.windows.net',
+    #     'OPTIONS': {
+    #         'driver': 'ODBC Driver 17 for SQL Server',
+            
+    #     }
+    # }
 }
 
 AUTH_USER_MODEL = 'auctions.User'
